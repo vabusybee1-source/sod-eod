@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BusyBee Conversion Academy | Daily Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #FFF8E7 0%, #FFE5B4 100%);
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: white;
+      max-width: 650px;
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(244, 180, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #F4B400 0%, #FFD54F 100%);
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '🐝';
+      position: absolute;
+      font-size: 120px;
+      opacity: 0.1;
+      top: -20px;
+      right: -20px;
+      transform: rotate(-15deg);
+    }
+
+    .header h1 {
+      color: #1a1a1a;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .header p {
+      color: #4a4a4a;
+      font-size: 14px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .form-content {
+      padding: 40px 30px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c2c2c;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e8e8e8;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: #fafafa;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #F4B400;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(244, 180, 0, 0.1);
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23666' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    .dynamic-fields {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #F4B400 0%, #FFD54F 100%);
+      color: #1a1a1a;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(244, 180, 0, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(244, 180, 0, 0.4);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      display: none;
+    }
+
+    #status.success {
+      background: #E8F5E9;
+      color: #2E7D32;
+      display: block;
+    }
+
+    #status.error {
+      background: #FFEBEE;
+      color: #C62828;
+      display: block;
+    }
+
+    .rating-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .rating-option {
+      flex: 1;
+      min-width: 60px;
+      padding: 12px;
+      text-align: center;
+      border: 2px solid #e8e8e8;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fafafa;
+      font-weight: 600;
+    }
+
+    .rating-option:hover {
+      border-color: #F4B400;
+      background: #FFF8E7;
+    }
+
+    .rating-option input[type="radio"] {
+      display: none;
+    }
+
+    .rating-option input[type="radio"]:checked + label {
+      background: #F4B400;
+      color: white;
+    }
+
+    @media (max-width: 640px) {
+      .header h1 {
+        font-size: 24px;
+      }
+      
+      .form-content {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🐝 BusyBee Conversion Academy</h1>
+      <p>Daily Progress Report</p>
+    </div>
+
+    <div class="form-content">
+      <form id="reportForm">
+        <div class="form-group">
+          <label for="reportType">Report Type *</label>
+          <select name="type" id="reportType" required>
+            <option value="">Select report type...</option>
+            <option value="SOD">Start of Day (SOD)</option>
+            <option value="EOD">End of Day (EOD)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" name="name" id="name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="batch">Batch / Training Group *</label>
+          <input type="text" name="batch" id="batch" placeholder="e.g., Batch 5, Team Alpha" required>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date *</label>
+          <input type="date" name="date" id="date" required>
+        </div>
+
+        <div id="sodFields" class="dynamic-fields">
+          <div class="form-group">
+            <label for="timeIn">Time In</label>
+            <input type="time" name="timeIn" id="timeIn">
+          </div>
+
+          <div class="form-group">
+            <label for="tasksPlanned">Tasks Planned for Today</label>
+            <textarea name="tasksPlanned" id="tasksPlanned" placeholder="List the tasks you plan to accomplish today..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="goals">Goals / Focus for the Day</label>
+            <textarea name="goals" id="goals" placeholder="What are your main objectives and focus areas?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="questions">Any Questions or Clarifications?</label>
+            <textarea name="questions" id="questions" placeholder="Share any questions or areas where you need support..."></textarea>
+          </div>
+        </div>
+
+        <div id="eodFields" class="dynamic-fields">
+          <div class="form-group">
+            <label for="timeOut">Time Out</label>
+            <input type="time" name="timeOut" id="timeOut">
+          </div>
+
+          <div class="form-group">
+            <label for="tasksCompleted">Tasks Completed</label>
+            <textarea name="tasksCompleted" id="tasksCompleted" placeholder="What did you accomplish today?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="challenges">Challenges Faced</label>
+            <textarea name="challenges" id="challenges" placeholder="Describe any obstacles or difficulties you encountered..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="learnings">Learnings or Takeaways</label>
+            <textarea name="learnings" id="learnings" placeholder="What did you learn today? Key insights?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="plan">Plan for Tomorrow</label>
+            <textarea name="plan" id="plan" placeholder="What are your priorities for the next day?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Overall Productivity Rating (1–5)</label>
+            <select name="rating" id="rating">
+              <option value="">Rate your productivity...</option>
+              <option value="1">1 - Needs Improvement</option>
+              <option value="2">2 - Below Average</option>
+              <option value="3">3 - Average</option>
+              <option value="4">4 - Good</option>
+              <option value="5">5 - Excellent</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Report</button>
+      </form>
+      
+      <div id="status"></div>
+    </div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwo_FgfKU7y9tPnaP49xEj_rTO9GdKvjHlG2VruO8QtDUANZLs1LOjOXToV5RuX44fNuA/exec";
+
+    const reportType = document.getElementById('reportType');
+    const sodFields = document.getElementById('sodFields');
+    const eodFields = document.getElementById('eodFields');
+    const statusDiv = document.getElementById('status');
+
+    // Set today's date as default
+    document.getElementById('date').valueAsDate = new Date();
+
+    reportType.addEventListener('change', () => {
+      const type = reportType.value;
+      sodFields.style.display = type === 'SOD' ? 'block' : 'none';
+      eodFields.style.display = type === 'EOD' ? 'block' : 'none';
+    });
+
+    document.getElementById('reportForm').addEventListener('submit', e => {
+      e.preventDefault();
+      
+      const submitBtn = e.target.querySelector('.btn-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      
+      const formData = Object.fromEntries(new FormData(e.target).entries());
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(formData)
+      })
+      .then(res => res.text())
+      .then(() => {
+        statusDiv.className = 'success';
+        statusDiv.textContent = '✅ Report submitted successfully!';
+        e.target.reset();
+        sodFields.style.display = 'none';
+        eodFields.style.display = 'none';
+        document.getElementById('date').valueAsDate = new Date();
+        
+        setTimeout(() => {
+          statusDiv.style.display = 'none';
+        }, 5000);
+      })
+      .catch(() => {
+        statusDiv.className = 'error';
+        statusDiv.textContent = '❌ Error submitting report. Please try again.';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Report';
+      });
+    });
+  </script>
+</body>
+</html>
